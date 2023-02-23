@@ -21,11 +21,11 @@ Model.A.hasOne(Model.E);
 exports.getuser = (data) => {
   return new Promise((resolve, reject) => {
     let include = {};
-    (include = [
-      { model: Model.B, attributes: ["id", "Bname_Department"] },
-      { model: Model.C, attributes: ["id", "Cname_Education"] },
-      { model: Model.D, attributes: ["id", "Dname_Salary"] },
-      { model: Model.E, attributes: ["id", "Ename_Address"] },
+    (include = [                                              // Apply isDeleted=0 only for this include
+      { model: Model.B, attributes: ["id", "Bname_Department"] ,required:false,separate: true, where: { isDeleted: 0 }},
+      { model: Model.C, attributes: ["id", "Cname_Education"],required:false,separate: true, where: { isDeleted: 0 } },
+      { model: Model.D, attributes: ["id", "Dname_Salary"],required:false,separate: true, where: { isDeleted: 0 } },
+      { model: Model.E, attributes: ["id", "Ename_Address"] ,required:false,separate: true, where: { isDeleted: 0 }},
     ]),
       Model.A.findAndCountAll({
         attributes: ["id", "Aname_user"],
